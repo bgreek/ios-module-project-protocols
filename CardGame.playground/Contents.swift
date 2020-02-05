@@ -16,8 +16,10 @@ enum PlayingCard: Int {
     case jack
     case queen
     case king
+    static var allRanks: [PlayingCard] {
+    return [ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king]
+    }
 }
-
 //: ## Step 2
 //: Once you've defined the enum as described above, take a look at this built-in protocol, [CustomStringConvertible](https://developer.apple.com/documentation/swift/customstringconvertible) and make the enum conform to that protocol. Make the face cards return a string of their name, and for the numbered cards, simply have it return that number as a string.
 extension PlayingCard: CustomStringConvertible {
@@ -36,10 +38,10 @@ extension PlayingCard: CustomStringConvertible {
         case .jack: return "Jack"
         case .queen: return "Queen"
         case .king: return "King"
-        static var allRanks = [PlayingCard]()
+            }
         }
     }
-}
+
 
 
 let kingCard: PlayingCard = .king
@@ -55,7 +57,11 @@ enum SuitOfAPlayingCard: String {
     case diamonds
     case spades
     case clubs
-    static var allSuits = [SuitOfAPlayingCard]()
+    static var allSuits: [SuitOfAPlayingCard] {
+        return [hearts, diamonds, spades, clubs]
+        
+        
+    }
 }
 
 
@@ -82,9 +88,14 @@ extension Card: CustomStringConvertible {
 //: ## Step 6
 //: Create a `struct` to model a deck of cards. It should be called `Deck` and have an array of `Card` objects as a constant property. A custom `init` function should be created that initializes the array with a card of each rank and suit. You'll want to iterate over all ranks, and then over all suits (this is an example of _nested `for` loops_). See the next 2 steps before you continue with the nested loops.
 struct Deck {
-    let array: [Card] = []
-init () {
-    }
+    let cardArray: [Card] = []
+    init () {
+        for suit in SuitOfAPlayingCard.allSuits {
+            for rank in PlayingCard.allRanks {
+                cardArray.append(Card(suit: suit, rank: rank))
+                
+            }
+        }
 }
 
 
